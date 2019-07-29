@@ -3,14 +3,14 @@ package com.lcb.dsa.array;
 public class Array {
 	// 保存数据
 	private int[] values;
-	// 数组长度
-	private int size;
+	// 数组容量
+	private int capacity;
 	// 已占用数组个数
 	private int count;
 
 	public Array(int capacity) {
 		this.values = new int[capacity];
-		this.size = capacity;
+		this.capacity = capacity;
 		// 刚创建时，已占用数组个数为0
 		this.count = 0;
 	}
@@ -44,7 +44,7 @@ public class Array {
 	 * @return
 	 */
 	public boolean insert(int index, int value) {
-		if (count == size) {
+		if (count == capacity) {
 			return false;
 		}
 
@@ -102,16 +102,16 @@ public class Array {
 		array.insert(3, 3);
 		array.insert(4, 4);
 		array.printAll();
-		
+
 		array.delete(0);
 		array.printAll();
-		
+
 		array.delete(4);
 		array.printAll();
-		
+
 		array.delete(3);
 		array.printAll();
-		
+
 		array.delete(1);
 		array.printAll();
 	}
