@@ -3,7 +3,7 @@ package com.lcb.dsa.linkedlist;
 public class SinglyLinkedList<T> {
 
 	/**
-	 * 头结点
+	 * 头结点不保存数据
 	 */
 	private Node<T> head;
 
@@ -12,22 +12,93 @@ public class SinglyLinkedList<T> {
 	}
 
 	/**
-	 * 添加元素到链表尾部
+	 * 添加元素到链表头部
 	 * 
 	 * @param element
 	 */
 	public void add(T element) {
-		Node<T> newNode = new Node<T>();
-		newNode.setElement(element);
+		// 新建节点
+		Node<T> node = new Node<T>();
+		node.setElement(element);
 
-		// 查找链表尾部节点
+		// 插入链表头部
+		node.setNext(head.next);
+		head.setNext(node);
+	}
+
+	/**
+	 * 返回节点的下标
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public T find(int index) {
+		Node<T> next = findNode(index);
+		if (next != null) {
+			return next.element;
+		}
+
+		return null;
+	}
+
+	/**
+	 * 返回节点的下标
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public int index(T element) {
+		int index = -1;
+		if (element == null) {
+			return index;
+		}
+
 		Node<T> next = head;
+		while (next != null) {
+			if (element.equals(next.element)) {
+				return index + 1;
+			}
+			next = next.next;
+			index++;
+		}
+
+		return index;
+	}
+
+	/**
+	 * 在节点之前插入
+	 * 
+	 * @param node
+	 */
+	public void insert(int index, T element) {
+		Node<T> next = findNode(index);
+
 		while (next.next != null) {
 			next = next.next;
 		}
+	}
 
-		// 添加到尾部节点
-		next.setNext(newNode);
+	public Node<T> findNode(int index) {
+		int i = -1;
+
+		if (index < i) {
+			return null;
+		}
+
+		Node<T> next = head;
+		while (next != null) {
+			if (index == i) {
+				break;
+			}
+			next = next.next;
+			i++;
+		}
+
+		if (next != null) {
+			return next;
+		}
+
+		return null;
 	}
 
 	/**
@@ -35,25 +106,7 @@ public class SinglyLinkedList<T> {
 	 * 
 	 * @param element
 	 */
-	public void delete(Node<T> node) {
-
-	}
-
-	/**
-	 * 删除节点
-	 * 
-	 * @param element
-	 */
-	public void delete(int index) {
-
-	}
-
-	/**
-	 * 插入元素
-	 * 
-	 * @param element
-	 */
-	public void insert(T element) {
+	public void remove(int index) {
 
 	}
 
@@ -89,8 +142,13 @@ public class SinglyLinkedList<T> {
 
 		Node<Integer> next = list.head;
 		while (next != null) {
-			System.out.println(next.getElement());
+			int index = list.index(next.element);
+			Integer element = list.find(index);
+
+			System.out.println(index + "-" + element);
+
 			next = next.next;
 		}
+
 	}
 }
