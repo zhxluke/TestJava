@@ -144,7 +144,6 @@ public class SinglyLinkedList<T> {
 		while (next != null) {
 			int index = list.index(next.element);
 			Integer element = list.find(index);
-
 			System.out.println(index + "-" + element);
 
 			next = next.next;
