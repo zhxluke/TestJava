@@ -7,8 +7,11 @@ public class SinglyLinkedList<T> {
 	 */
 	private Node<T> head;
 
+	private int length;
+
 	public SinglyLinkedList() {
 		this.head = new Node<T>();
+		this.length = 0;
 	}
 
 	/**
@@ -16,14 +19,21 @@ public class SinglyLinkedList<T> {
 	 * 
 	 * @param element
 	 */
-	public void add(T element) {
+	public void addHead(T element) {
 		// 新建节点
 		Node<T> node = new Node<T>();
 		node.setElement(element);
 
-		// 插入链表头部
+		// 插入头结点尾部
 		node.setNext(head.next);
 		head.setNext(node);
+
+		// 长度加一
+		length++;
+	}
+
+	public void reverse() {
+
 	}
 
 	/**
@@ -53,7 +63,7 @@ public class SinglyLinkedList<T> {
 			return index;
 		}
 
-		Node<T> next = head;
+		Node<T> next = head.next;
 		while (next != null) {
 			if (element.equals(next.element)) {
 				return index + 1;
@@ -66,39 +76,72 @@ public class SinglyLinkedList<T> {
 	}
 
 	/**
-	 * 在节点之前插入
+	 * 在指定位置插入一个元素
 	 * 
 	 * @param node
 	 */
 	public void insert(int index, T element) {
-		Node<T> next = findNode(index);
+		if (index < 0 || index > length) {
+			return;
+		}
 
-		while (next.next != null) {
-			next = next.next;
+		Node<T> prev = head;
+		Node<T> next = prev.next;
+		for (int i = 0; i < index; i++) {
+			if (next.next == null) {
+				break;
+			}
+			System.out.println("prev->"+prev.element);
+			prev = next;
+			next = prev.next;
+		}
+		
+		insert(prev, element);
+		
+	}
+
+	/**
+	 * 插入指定节点尾部
+	 * 
+	 * @param node
+	 * @param element
+	 */
+	private void insert(Node<T> node, T element) {
+		if (node != null) {
+			// 新建节点
+			Node<T> newNode = new Node<T>();
+			newNode.setElement(element);
+
+			newNode.setNext(node.next);
+			node.setNext(newNode);
+
+			// 长度加一
+			length++;
+		}
+	}
+
+	public void insert(T element) {
+		if (length == 0) {
+			insert(head, element);
+		} else {
+			insert(findNode(length - 1), element);
 		}
 	}
 
 	public Node<T> findNode(int index) {
-		int i = -1;
-
-		if (index < i) {
+		if (index < 0 || index > length - 1) {
 			return null;
 		}
 
-		Node<T> next = head;
-		while (next != null) {
-			if (index == i) {
+		Node<T> next = head.next;
+		for (int i = 0; i <= index; i++) {
+			if (next.next == null) {
 				break;
 			}
 			next = next.next;
-			i++;
 		}
 
-		if (next != null) {
-			return next;
-		}
-
-		return null;
+		return next;
 	}
 
 	/**
@@ -107,7 +150,16 @@ public class SinglyLinkedList<T> {
 	 * @param element
 	 */
 	public void remove(int index) {
+		System.out.println("this is a empty method");
+	}
 
+	public void print() {
+		Node<T> next = head.next;
+		while (next != null) {
+			int index = index(next.element);
+			System.out.println(index + "-" + next.element);
+			next = next.next;
+		}
 	}
 
 	public static class Node<T> {
@@ -134,21 +186,15 @@ public class SinglyLinkedList<T> {
 
 	public static void main(String[] args) {
 		SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		list.add(4);
-		list.add(5);
+		list.insert(1);
+		list.insert(2);
+		list.insert(3);
+		list.insert(4);
+		list.insert(5);
 
-		Node<Integer> next = list.head;
-		while (next != null) {
-			int index = list.index(next.element);
-			Integer element = list.find(index);
+		list.insert(6, 6);
+		list.insert(0, 7);
 
-			System.out.println(index + "-" + element);
-
-			next = next.next;
-		}
-
+		list.print();
 	}
 }
