@@ -1,13 +1,16 @@
 package com.lcb.ds.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree<T> {
-	private Node<T> root;
+	private TreeNode<T> root;
 
 	public BinaryTree(T element) {
-		this.root = new Node<T>(element);
+		this.root = new TreeNode<T>(element);
 	}
 
-	public void print(Node<T> node) {
+	public void print(TreeNode<T> node) {
 		if (node != null) {
 			System.out.println(node.element);
 		}
@@ -17,7 +20,7 @@ public class BinaryTree<T> {
 		inOrder(root);
 	}
 
-	private void inOrder(Node<T> node) {
+	private void inOrder(TreeNode<T> node) {
 		if (node == null) {
 			return;
 		}
@@ -27,12 +30,12 @@ public class BinaryTree<T> {
 		inOrder(node.right);
 	}
 
-	private static class Node<T> {
+	private static class TreeNode<T> {
 		private T element;
-		private Node<T> left;
-		private Node<T> right;
+		private TreeNode<T> left;
+		private TreeNode<T> right;
 
-		Node(T element) {
+		TreeNode(T element) {
 			this.element = element;
 		}
 
@@ -46,10 +49,12 @@ public class BinaryTree<T> {
 
 	public static void main(String[] args) {
 		BinaryTree<Integer> tree = new BinaryTree<Integer>(2);
-		tree.root.left = new Node<Integer>(1);
-		tree.root.right = new Node<Integer>(3);
+		tree.root.left = new TreeNode<Integer>(1);
+		tree.root.right = new TreeNode<Integer>(3);
 
 		tree.print();
+		
+		Queue<TreeNode<Integer>> q = new LinkedList<TreeNode<Integer>>();
 	}
 
 }
