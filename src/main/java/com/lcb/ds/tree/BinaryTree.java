@@ -1,4 +1,4 @@
-package com.lcb.dsa.tree;
+package com.lcb.ds.tree;
 
 public class BinaryTree<T> {
 	private Node<T> root;

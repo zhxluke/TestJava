@@ -1,4 +1,4 @@
-package com.lcb.dsa.linkedlist;
+package com.lcb.ds.linkedlist;
 
 public class DoubleLinkedList<T> {
 

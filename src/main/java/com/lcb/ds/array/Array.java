@@ -1,4 +1,4 @@
-package com.lcb.dsa.array;
+package com.lcb.ds.array;
 
 public class Array {
 	// 保存数据
