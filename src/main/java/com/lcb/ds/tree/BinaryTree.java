@@ -1,23 +1,37 @@
 package com.lcb.ds.tree;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-public class BinaryTree<T> {
+public class BinaryTree<T extends Comparable<T>> implements Comparable<T> {
 	private TreeNode<T> root;
 
 	public BinaryTree(T element) {
 		this.root = new TreeNode<T>(element);
 	}
 
-	public void print(TreeNode<T> node) {
-		if (node != null) {
-			System.out.println(node.element);
-		}
+	public TreeNode<T> getRoot() {
+		return root;
 	}
 
-	private void print() {
-		inOrder(root);
+	public void add(T element) {
+		addElement(root, element);
+	}
+
+	private void addElement(TreeNode<T> node, T element) {
+		if (element.compareTo(node.getElement()) == 0) {
+			return;
+		}
+		if (element.compareTo(node.getElement()) < 0) {
+			if (node.getLeft() != null) {
+				addElement(node.getLeft(), element);
+			} else {
+				node.setLeft(new TreeNode<T>(element));
+			}
+		} else {
+			if (node.getRight() != null) {
+				addElement(node.getRight(), element);
+			} else {
+				node.setRight(new TreeNode<T>(element));
+			}
+		}
 	}
 
 	private void inOrder(TreeNode<T> node) {
@@ -25,36 +39,29 @@ public class BinaryTree<T> {
 			return;
 		}
 
-		inOrder(node.left);
-		node.print();
-		inOrder(node.right);
+		inOrder(node.getLeft());
+		System.out.println(node.getElement());
+		inOrder(node.getRight());
 	}
 
-	private static class TreeNode<T> {
-		private T element;
-		private TreeNode<T> left;
-		private TreeNode<T> right;
-
-		TreeNode(T element) {
-			this.element = element;
-		}
-
-		void print() {
-			if (element != null) {
-				System.out.println(element);
-			}
-		}
-
+	@Override
+	public int compareTo(T o) {
+		return this.compareTo(o);
 	}
 
 	public static void main(String[] args) {
-		BinaryTree<Integer> tree = new BinaryTree<Integer>(2);
-		tree.root.left = new TreeNode<Integer>(1);
-		tree.root.right = new TreeNode<Integer>(3);
-
-		tree.print();
+		BinaryTree<Integer> tree = new BinaryTree<Integer>(5);
+//		tree.root.setLeft(new TreeNode<Integer>(1));
+//		tree.root.setRight(new TreeNode<Integer>(3));
 		
-		Queue<TreeNode<Integer>> q = new LinkedList<TreeNode<Integer>>();
+		tree.add(1);
+		tree.add(3);
+		tree.add(6);
+		tree.add(7);
+		tree.add(9);
+
+		tree.inOrder(tree.getRoot());
+
 	}
 
 }
