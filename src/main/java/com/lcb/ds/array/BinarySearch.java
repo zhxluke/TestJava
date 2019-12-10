@@ -7,23 +7,27 @@ package com.lcb.ds.array;
  */
 public class BinarySearch {
     public static void main(String[] args) {
-        int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15 };
+        int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15 };
 
-        System.out.println("" + f(10, array));
+        System.out.println("" + f(16, array));
+
+        System.out.println("" + f(16, array, 0, array.length - 1));
     }
 
     public static int f(int a, int[] array) {
         int result = -1;
 
-        int i = 0;
-        int j = array.length - 1;
+        int start = 0;
+        int end = array.length - 1;
 
-        while (i < j) {
-            int mid = i + (j - i) / 2;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            System.out.println("mid->" + mid);
+
             if (array[mid] > a) {
-                j = mid - 1;
+                end = mid - 1;
             } else if (array[mid] < a) {
-                i = mid + 1;
+                start = mid + 1;
             } else {
                 result = mid;
                 break;
@@ -31,5 +35,23 @@ public class BinarySearch {
         }
 
         return result;
+    }
+
+    public static int f(int a, int[] array, int start, int end) {
+        if (start > end) {
+            return -1;
+        }
+
+        int mid = start + (end - start) / 2;
+        System.out.println("mid->" + mid);
+
+        if (array[mid] > a) {
+            return f(a, array, start, mid - 1);
+        }
+        if (array[mid] < a) {
+            return f(a, array, mid + 1, end);
+        }
+
+        return mid;
     }
 }
