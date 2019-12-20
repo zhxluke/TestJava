@@ -17,8 +17,8 @@ public class PrintABCUsingSemaphore {
      */
     public static void main(String[] args) {
         new Thread(new PrintSemaphore("A", semaphoreA, semaphoreB)).start();
-        new Thread(new PrintSemaphore("B", semaphoreB, semaphoreC)).start();
         new Thread(new PrintSemaphore("C", semaphoreC, semaphoreA)).start();
+        new Thread(new PrintSemaphore("B", semaphoreB, semaphoreC)).start();
     }
 
 }
