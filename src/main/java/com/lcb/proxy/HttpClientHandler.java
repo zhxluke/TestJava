@@ -20,7 +20,7 @@ public class HttpClientHandler implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		if (method.getName().equals("sendData")) {
-			System.out.println("发送数据...");
+			System.out.println("发送地方数据...");
 			method.invoke(httpClient, args);
 		} else if (method.getName().equals("receiveDate")) {
 			System.out.println("接收数据...");

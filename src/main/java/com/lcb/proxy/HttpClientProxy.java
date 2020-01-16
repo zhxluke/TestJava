@@ -9,7 +9,7 @@ public class HttpClientProxy implements Client {
 
 	@Override
 	public void sendData(String data) {
-		System.out.println("发送数据...");
+		System.out.println("..发送数据.");
 		httpClient.sendData(data);
 	}
 
